@@ -1,10 +1,10 @@
-<h1 align="center">01.-BootCamp</h1>
-<h2>For Pyton:</h2>
+# 01.-BootCamp
+## For Pyton
 ```
 pip install pycryptodome
 ```
 
-<h2>For Node.js:</h2>
+## For Node.js
 ```
 npm install ethers
 ```
