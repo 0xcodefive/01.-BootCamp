@@ -2,8 +2,13 @@ from Crypto.Cipher import AES
 import hashlib
 import base64
 
+iv = b'1234567890123456'
+
 def keyBySHA256(key):
     return '0x' + hashlib.sha256(key.encode()).hexdigest()
+
+def keyBySHA_1(key):
+    return bytes.fromhex(hashlib.sha1(key.encode()).hexdigest())
 
 def pad(data):
         while len(data) % AES.block_size != 0:
@@ -11,18 +16,20 @@ def pad(data):
         return data.encode('utf8')
 
 def encryptAES256(message, hex_key):
+    # hex_key = keyBySHA256(hex_key)
     if hex_key.startswith('0x'):
         hex_key = hex_key[2:]
     key = bytes.fromhex(hex_key)
-    cipher = AES.new(key, AES.MODE_ECB)
+    cipher = AES.new(key, AES.MODE_CBC, iv)
     raw = base64.b64encode(pad(message))
-    return base64.b64encode(cipher.encrypt(plaintext=raw))
+    return base64.b64encode(cipher.encrypt(raw))
 
 def decryptAES256(encoded_message, hex_key):
+    # hex_key = keyBySHA256(hex_key)
     if hex_key.startswith('0x'):
         hex_key = hex_key[2:]
     key = bytes.fromhex(hex_key)
-    cipher = AES.new(key, AES.MODE_ECB)
+    cipher = AES.new(key, AES.MODE_CBC, iv)
     enc = base64.b64decode(encoded_message)
     return base64.b64decode(cipher.decrypt(enc)).decode('utf8')
 

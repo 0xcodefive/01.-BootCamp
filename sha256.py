@@ -8,7 +8,7 @@ while True:
     input_str = prefix + str(nonce)
     hash_str = hashlib.sha256(input_str.encode()).hexdigest()
  
-    if hash_str.startswith('00000'):
+    if hash_str.startswith('000000'):
         print(f"Found nonce: {nonce}")
         print(f"Hash value: {hash_str}")
         break   
