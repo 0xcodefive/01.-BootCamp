@@ -6,5 +6,5 @@ pip install pycryptodome
 
 ## For Node.js
 ```
-npm install ethers
+npm install ethers@5
 ```
